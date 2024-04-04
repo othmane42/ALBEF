@@ -324,9 +324,9 @@ class BertSelfAttention(nn.Module):
         # Normalize the attention scores to probabilities.
         attention_probs = nn.Softmax(dim=-1)(attention_scores)
         
-        if is_cross_attention and self.save_attention:
-            self.save_attention_map(attention_probs)
-            attention_probs.register_hook(self.save_attn_gradients)         
+        # if is_cross_attention and self.save_attention: # modified !
+        self.save_attention_map(attention_probs)
+        attention_probs.register_hook(self.save_attn_gradients)         
 
         # This is actually dropping out entire tokens to attend to, which might
         # seem a bit unusual, but is taken from the original Transformer paper.
